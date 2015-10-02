@@ -1,0 +1,28 @@
+.container
+  .row
+    = image_tag current_user.image.thumb.url, class: "image img-circle" 
+    .col-sm-8
+      = simple_form_for @status do |f|
+        = f.error_notification
+        .form-group
+          = f.input :status, input_html: { class: 'form-control' }
+        br/
+        = f.button :submit, class: "btn3d btn btn-primary btn-md", id: "myBtn"
+        br/
+        hr/
+        - @statuses.each do |status|
+          p
+            .text-justify
+              blockquote
+                = status.status
+            h2.comment_count= pluralize(@comments.count, "Comment")
+            - @comments.each do |comment|
+                .comment
+                  p.comment= comment.comment
+                  br/ 
+
+            = render partial: "comment", locals: {status: status.id}  
+            
+       
+          
+        
